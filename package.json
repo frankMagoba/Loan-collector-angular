@@ -1,9 +1,9 @@
 {
-  "name": "angular-dashboard-starterkit",
-  "version": "1.2.0",
+  "name": "loan-manager",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,7 +23,9 @@
     "bootstrap": "^4",
     "bs-stepper": "^1.7.0",
     "core-js": "^2.5.4",
+    "express": "^4.17.1",
     "font-awesome": "^4.7.0",
+    "path": "^0.12.7",
     "rxjs": "~6.2.0",
     "webpack-dev-server": "^3.1.11",
     "zone.js": "~0.8.26"

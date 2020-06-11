@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemModel } from './_models/item.model';
-import { Observable, Subject,throwError, of , BehaviorSubject} from 'rxjs';
+import { Observable, Subject, throwError, of, BehaviorSubject } from 'rxjs';
 import { ItemsService } from './_services/items.service';
+import Stepper from 'bs-stepper';
 
 @Component({
   selector: 'app-items',
@@ -11,13 +12,24 @@ import { ItemsService } from './_services/items.service';
 export class ItemsComponent implements OnInit {
 
   items$: BehaviorSubject<ItemModel[]>;
+  private stepper: Stepper;
+
 
   constructor(
     private itemsService: ItemsService
   ) { }
 
   ngOnInit() {
-    this.items$  = this.itemsService.items$;
+    this.items$ = this.itemsService.items$;
+    this.stepper = new Stepper(document.querySelector('#stepper1'), {
+      linear: false,
+      animation: true
+    })
+  }
+
+
+  next() {
+    this.stepper.next();
   }
 
   hasItems(items: ItemModel[]): boolean {

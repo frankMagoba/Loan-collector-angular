@@ -36,4 +36,8 @@ export class ItemsComponent implements OnInit {
     return items && items.length > 0 ? true : false;
   }
 
+  onSubmit() {
+
+  }
+
 }

@@ -6,13 +6,13 @@
         "url": "https://github.com/frankMagoba/Loan-collector-angular"
     },
     "scripts": {
-        "build": "ng build",
+        "build": "webpack --mode production",
         "ng": "ng",
         "start": "node server.js",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "postinstall": "ng build --aot -prod"
+        "postinstall": "ng build --aot --prod"
     },
     "license": "MIT",
     "dependencies": {

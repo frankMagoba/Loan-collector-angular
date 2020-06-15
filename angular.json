@@ -173,8 +173,5 @@
       }
     }
   },
-  "defaultProject": "angular-dashboard-starterkit",
-  "cli": {
-    "analytics": "eaf28a38-0e9c-4515-8278-46f5568c79aa"
-  }
+  "defaultProject": "angular-dashboard-starterkit"
 }

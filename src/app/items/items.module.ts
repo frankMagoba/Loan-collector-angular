@@ -11,7 +11,7 @@ import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemsComponent } from './items.component';
 
 const routes: Routes = [
-  { path: 'loans', component: ItemsComponent , canActivate: [AuthGuard] },
+  { path: 'items', component: ItemsComponent , canActivate: [AuthGuard] },
   { path: 'item-edit/:id', component: ItemEditComponent , canActivate: [AuthGuard] }
 ];
 

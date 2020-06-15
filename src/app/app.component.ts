@@ -1,77 +1,24 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Subscription, BehaviorSubject } from 'rxjs';
+﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
 
-import { AuthService } from './_auth/services/auth.service';
-import { ItemsService } from './items/_services/items.service';
+import { AuthenticationService } from './_services';
+import { User } from './_models';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
-export class AppComponent implements OnInit, OnDestroy {
+import './_content/app.less';
 
-  loggedIn$: BehaviorSubject<boolean>;
-  private isLoggedIn_subscription: Subscription;
+@Component({ selector: 'app', templateUrl: 'app.component.html' })
+export class AppComponent {
+    currentUser: User;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    @Inject(DOCUMENT) private document: any,
-    private itemsService: ItemsService,
-  ) { }
-
-  ngOnInit() {
-
-    this.loggedIn$  =  this.authService.isLoggedIn;
-
-    this.isLoggedIn_subscription  = this.authService.isLoggedIn.subscribe(
-      (status) => {
-        this.setBodyClassName(status);
-
-        if (status) {
-          this.handleLoginSuccess();
-        } else {
-          this.handleLoginError();
-        }
-      }
-    );
-
-    // check and validate token
-    if (this.authService.hasToken()) {
-      this.authService.validateTokenOnServer().subscribe(
-        (result) => {
-          if (!result) {
-            this.logout();
-          }
-        }
-      );
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService
+    ) {
+        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
-  }
-
-  ngOnDestroy() {
-    if (this.isLoggedIn_subscription)  { this.isLoggedIn_subscription.unsubscribe(); }
-  }
-
-  private setBodyClassName(status: boolean) {
-    this.document.body.className = status ? '' : 'publicPage';
-  }
-
-  private handleLoginError() {
-    this.router.navigate(['/login']);
-  }
-
-  private handleLoginSuccess() {
-    // console.log('** handleLoginSuccess **');
-    this.itemsService.clear();
-    this.itemsService.fetch().subscribe();
-  }
-
-  private logout() {
-    this.authService.logout();
-    this.itemsService.clear();
-  }
+    logout() {
+        this.authenticationService.logout();
+        this.router.navigate(['/login']);
+    }
 }

@@ -1,23 +1,17 @@
-import { RouterModule, Routes } from '@angular/router';
-import { ModuleWithProviders } from '@angular/core';
+﻿import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuard } from './_auth/guards/auth.guard';
-
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
-
-/*
-* Routing for the items feature are stored in the items module file
-*/
+import { HomeComponent } from './home';
+import { LoginComponent } from './login';
+import { RegisterComponent } from './register';
+import { AuthGuard } from './_helpers';
 
 const routes: Routes = [
-
-    { path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard] },
+    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
-    { path: 'logout', component: LogoutComponent },
-    { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
-    { path: '',  redirectTo: '/dashboard', pathMatch: 'full' }, // catch all route
+    { path: 'register', component: RegisterComponent },
 
+    // otherwise redirect to home
+    { path: '**', redirectTo: '' }
 ];
-export const routingModule: ModuleWithProviders = RouterModule.forRoot(routes);
+
+export const appRoutingModule = RouterModule.forRoot(routes);
